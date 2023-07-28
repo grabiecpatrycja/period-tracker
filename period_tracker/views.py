@@ -18,7 +18,7 @@ def register(request):
         if form.is_valid:
             form.save()
             username = request.POST["username"]
-            password = request.POST["password"]
+            password = request.POST["password1"]
             user = authenticate(request, username=username, password=password)
             login(request, user)
             return redirect('period_tracker:index')
@@ -49,12 +49,7 @@ def logout_view(request):
 
 
 def user(request):
-    length = mean_length(request.user)
-    next = next_period(request.user, mean_length)
-
     return render(request, "period_tracker/user.html", {
-        "next_period": next,
-        "mean_length": length,
     })
 
 def add_period(request):
@@ -66,12 +61,12 @@ def add_period(request):
             period.save()
 
             periods = Period.objects.filter(user=request.user).order_by("-first_day")
-
-            period_1 = periods[0]
-            period_2 = periods[1]
-            length = (period_1.first_day - period_2.first_day).days
-            period_2.length = length
-            period_2.save()
+            if periods.count() >=2:
+                period_1 = periods[0]
+                period_2 = periods[1]
+                length = (period_1.first_day - period_2.first_day).days
+                period_2.length = length
+                period_2.save()
 
     return render(request, "period_tracker/add_period.html",{
         "periods": Period.objects.filter(user=request.user).order_by("first_day"),

@@ -5,8 +5,8 @@
    </head>
    <body>
         <h1>Cześć {{ request.user.first_name }}</h1>
-        Średnia długość cyklu: {{ mean_length }} dni<br>
-        Następna miesiaczka: {{ next_period }}<br>
+        Średnia długość cyklu: <br>
+        Następna miesiaczka: <br>
 
     <a href="{% url 'period_tracker:logout' %}">Wyloguj</a>
    </body>
