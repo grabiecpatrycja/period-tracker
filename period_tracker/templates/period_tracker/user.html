@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="pl">
+   <head>
+       <title>Kalendarz miesiączkowy</title>
+   </head>
+   <body>
+        <h1>Cześć {{ request.user.first_name }}</h1>
+        Średnia długość cyklu: {{ mean_length }} dni<br>
+        Następna miesiaczka: {{ next_period }}<br>
+
+    <a href="{% url 'period_tracker:logout' %}">Wyloguj</a>
+   </body>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pl">
+   <head>
+       <title>Kalendarz miesiączkowy</title>
+   </head>
+   <body>        
+        <form action="{% url 'period_tracker:login' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit" value="Login">
+        </form>
+
+        <a href="{% url 'period_tracker:register' %}">Utwórz konto</a>
+
+        {% if message %}
+        <div>{{ message }}</div>
+        {% endif %}
+   </body>

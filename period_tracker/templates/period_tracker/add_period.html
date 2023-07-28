@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pl">
+   <head>
+       <title>Kalendarz miesiączkowy</title>
+   </head>
+   <body>
+        <form action="{% url 'period_tracker:add' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+        <input type="Submit">
+        </form>
+        <ul>
+            {% for period in periods %}
+                <li>{{ period.first_day }}, {{ period.length }}</li>
+            {% endfor %}
+        </ul>
+   </body>
