@@ -1,16 +1,26 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
    <head>
-       <title>Kalendarz miesiączkowy</title>
+       <title>Perior tracker</title>
+       <link href="https://fonts.googleapis.com/css?family=Oooh+Baby&display=swap" rel="stylesheet">
+       <link href="{% static 'period_tracker/style.css' %}" rel="stylesheet">
    </head>
    <body>
-        <h2>Rejestracja nowego użytkownika</h2>
-        <form action="{% url 'period_tracker:register' %}" method="POST">
-            {% csrf_token %}
-            {% for field in form %}
-                <p>{{ field.label_tag }}</p>
-                <p>{{ field }}</p>
-            {% endfor %}
-            <input type="submit" value="Utwórz konto">
-        </form>
+        <h1 class="logo">Period tracker</h1>
+        <h1>Creating new account</h1>
+        <div class="form-container">
+            <form action="{% url 'period_tracker:register' %}" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                    <p>{{ field.label_tag }}</p>
+                    <p>{{ field }}</p>
+                {% endfor %}
+                <input class="submit-button" type="submit" value="Create and login">
+            </form>
+        </div>
    </body>

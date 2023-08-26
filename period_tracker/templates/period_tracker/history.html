@@ -1,0 +1,43 @@
+{% extends 'period_tracker/base.html' %}
+
+{% block content %}
+
+    <table>
+        <thead>
+            <th>First day</th>
+            <th>Length [days]</th>
+            <th>Ovulation day</th>
+            <th>ovulation in [day]</th>
+        </thead>
+        <tbody>    
+            {% for period in periods %}
+                <tr>
+            <td>
+                {{ period.first_day }}
+            </td>
+            <td>
+                {% if period.length is None %}
+                    -
+                {% endif %}
+                {{ period.length.days }}
+            </td>
+            <td>
+                {% if period.ovulation_day is None %}
+                    -
+                {% else %}
+                    {{ period.ovulation_day }}
+                {% endif %}
+            </td>
+            <td>
+                {% if period.ovulation_len is None %}
+                    -
+                {% endif %}
+                {{ period.ovulation_len.days }}
+            </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'period_tracker:user'%}">My account</a><br>
+
+{% endblock %}

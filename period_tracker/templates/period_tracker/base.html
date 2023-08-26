@@ -1,0 +1,16 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+       <title>Perior tracker</title>
+       <link href="https://fonts.googleapis.com/css?family=Oooh+Baby&display=swap" rel="stylesheet">
+       <link href="{% static 'period_tracker/style.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <h1 class="logo">Period tracker</h1> 
+        {% block content %}
+        {% endblock %}
+
+
+    </body>

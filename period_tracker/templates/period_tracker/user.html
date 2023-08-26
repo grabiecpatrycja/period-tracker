@@ -1,12 +1,48 @@
-<!DOCTYPE html>
-<html lang="pl">
-   <head>
-       <title>Kalendarz miesiączkowy</title>
-   </head>
-   <body>
-        <h1>Cześć {{ request.user.first_name }}</h1>
-        Średnia długość cyklu: <br>
-        Następna miesiaczka: <br>
+{% extends 'period_tracker/base.html' %}
+{% load custom_filters %}
 
-    <a href="{% url 'period_tracker:logout' %}">Wyloguj</a>
-   </body>
+{% block content %}
+    <div class="column-container">
+        <div class="wide-column">
+            <div class="content">
+                <h2>Hello, {{ request.user.first_name }}!</h2>
+                <p><span class="bold">{{ day.days }}</span> day of cycle</p>
+
+                {% if day_to_next.days > 1 %}
+                    <p><span class="bold">{{ day_to_next.days }}</span> days until next period</p>
+                {% elif day_to_next.days == 1 %}
+                    <p><span class="bold">{{ day_to_next.days }}</span> day until next period</p>
+                {% elif day_to_next.days == 0 %}
+                    <p>Your period should start today!</p>
+                {% else %}
+                    <p>Your period is <span class="bold">{{ day_to_next.days|abs_value }}</span> days late</p>
+                {% endif %}
+                <p>Next period: {{ next_period }}</p>
+
+                {% if day_to_ovul.days > 1 %}
+                    <p><span class="bold">{{ day_to_ovul.days }}</span> days until ovulation</p>
+                {% elif day_to_ovul.days == 1 %}
+                    <p><span class="bold">{{ day_to_ovul.days }}</span> day until ovulation</p>
+                {% elif day_to_ovul.days == 0 %}
+                    <p>Your're ovulating!</p>
+                {% endif %}
+                <p>Next ovulation: {{ next_ovulation }}</p>
+
+                <div class="button-container">
+                    <a href="{% url 'period_tracker:log_period'%}" class="button">Log period</a>
+                    <a href="{% url 'period_tracker:log_ovulation'%}" class="button">Log ovulation</a>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="content">
+                <p><span class="bold">STATISTIC:</span></p>
+                <p>Average length of cycle: {{ average_length.avg_length.days }} days</p>
+                <p>Average day of ovulation: {{ average_ovulation.avg_ovulation.days }} days</p>
+                <a href="{% url 'period_tracker:history'%}">History</a><br>
+                <a href="{% url 'period_tracker:logout' %}">Log out</a><br>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

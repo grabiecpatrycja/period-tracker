@@ -8,11 +8,16 @@ class CustomUserCreationForm(UserCreationForm):
         model = User
         fields = ["username", "first_name", "email", "password1", "password2"]
 
-class PreviousPeriodForm(forms.ModelForm):
+class PeriodForm(forms.ModelForm):
     class Meta:
         model = Period
         fields = ["first_day", "ovulation_day"]
+        widgets = {
+            'first_day': forms.DateInput(attrs={'type':'date', 'class': 'date-input'}),
+            'ovulation_day': forms.DateInput(attrs={'type':'date', 'class': 'date-input'})
+        }
+
 
     def __init__(self, *args, **kwargs):
-        super(PreviousPeriodForm, self).__init__(*args, **kwargs)
+        super(PeriodForm, self).__init__(*args, **kwargs)
         self.fields["ovulation_day"].required = False

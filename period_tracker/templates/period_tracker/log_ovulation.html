@@ -1,0 +1,23 @@
+{% extends 'period_tracker/base.html' %}
+
+{% block content %}
+    <div class="form-container">
+        <form action="{% url 'period_tracker:log_ovulation' %}" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == "ovulation_day" %}
+                    <p>{{ field.label_tag }}</p>
+                {% endif %}
+                <p>{{ field }}</p>
+            {% endfor %}
+        <input type="Submit" class="submit-button" value="Submit">
+        </form>
+    </div>
+
+    {% if message %}:
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <a  href="{% url 'period_tracker:user'%}">My account</a>
+
+{% endblock %}
